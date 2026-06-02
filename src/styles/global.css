@@ -1,0 +1,43 @@
+:root {
+  --bg: #0b0b0c;
+  --surface: #141416;
+  --border: #252525;
+  --text: #ffffff;
+  --muted: #b8aea3;
+
+  --eggshell: #F8F5F2;
+  --greige: #D8D2C8;
+  --salt: #FAF9F6;
+  --antique: #EEDFCC;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.container {
+  width: min(1200px, 92%);
+  margin: auto;
+}
