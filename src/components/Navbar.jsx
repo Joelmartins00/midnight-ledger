@@ -34,10 +34,6 @@ export default function Navbar() {
           Expenses
         </Link>
 
-        <Link to="/categories">
-          Categories
-        </Link>
-
         <Link to="/reports">
           Reports
         </Link>
