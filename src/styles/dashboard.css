@@ -17,15 +17,15 @@
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 .stat-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 24px;
+  padding: 16px;
 
   transition: all 0.3s ease;
 }
@@ -41,7 +41,7 @@
 }
 
 .stat-card h2 {
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 
 .chart-section {
@@ -91,4 +91,19 @@
 
 .add-button:hover {
   transform: translateY(-3px);
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .stat-card {
+    padding: 24px;
+  }
+
+  .stat-card h2 {
+    font-size: 2rem;
+  }
 }
