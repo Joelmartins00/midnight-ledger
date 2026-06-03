@@ -1,4 +1,5 @@
 import ExpensePieChart from "../components/ExpensePieChart";
+import ExpenseBarChart from "../components/ExpenseBarChart";
 import "../styles/dashboard.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // ✅ Added useNavigate
@@ -130,9 +131,16 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div style={{ marginTop: "40px" }}>
-        <h2>Spending By Category</h2>
-        <ExpensePieChart expenses={expenses} />
+      <div className="charts-grid">
+        <ExpensePieChart
+          expenses={expenses}
+          currency={currency}
+        />
+
+        <ExpenseBarChart
+          expenses={expenses}
+          currency={currency}
+        />
       </div>
 
       <div className="recent-section">

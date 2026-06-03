@@ -107,3 +107,19 @@
     font-size: 2rem;
   }
 }
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+  align-items: start;
+  justify-items: center;
+}
+
+@media (min-width: 900px) {
+  .charts-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}

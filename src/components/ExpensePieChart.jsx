@@ -53,17 +53,46 @@ export default function ExpensePieChart({
   return (
     <div
       style={{
+        width: "100%",
         maxWidth: "350px",
+        height: "350px",
         margin: "30px auto 0",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      <Pie
-       data={data} 
-       options={{
-          responsive: true,
-          maintainAspectRatio: true,
+      <h2
+        style={{
+          marginBottom: "15px",
+          textAlign: "center",
         }}
-      />
+      >
+        Category Distribution
+      </h2>
+
+      <div
+        style={{
+          flex: 1,
+          position: "relative",
+        }}
+      >
+        <Pie
+          data={data}
+          options={{
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: {
+                  color: "#F8F5F2",
+                },
+              },
+            },
+          }}
+        />
+      </div>
     </div>
   );
 }
