@@ -53,11 +53,17 @@ export default function ExpensePieChart({
   return (
     <div
       style={{
-        maxWidth: "500px",
-        marginTop: "30px",
+        maxWidth: "350px",
+        margin: "30px auto 0",
       }}
     >
-      <Pie data={data} />
+      <Pie
+       data={data} 
+       options={{
+          responsive: true,
+          maintainAspectRatio: true,
+        }}
+      />
     </div>
   );
 }

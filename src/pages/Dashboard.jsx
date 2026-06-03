@@ -98,7 +98,7 @@ export default function Dashboard() {
       <div className="dashboard-header">
         <h1>Financial Dashboard</h1>
         <p>
-          Monitor spending patterns and track financial activity.
+          View and monitor spending patterns and track financial activity.
         </p>
       </div>
 

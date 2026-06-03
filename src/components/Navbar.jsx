@@ -24,33 +24,59 @@ export default function Navbar() {
           menuOpen ? "active" : ""
         }`}
       >
-        <Link to="/">Home</Link>
+        <Link 
+         to="/"
+         onClick={() => setIsOpen(false)}
+        >
+          Home
+        </Link>
 
-        <Link to="/dashboard">
+        <Link 
+          to="/dashboard"
+          onClick={() => setIsOpen(false)}
+        >
           Dashboard
         </Link>
 
-        <Link to="/expenses">
+        <Link
+         to="/expenses"
+         onClick={() => setIsOpen(false)}
+        >
           Expenses
         </Link>
 
-        <Link to="/reports">
+        <Link 
+          to="/reports"
+          onClick={() => setIsOpen(false)}
+        >
           Reports
         </Link>
 
-        <Link to="/settings">
+        <Link
+         to="/settings"
+         onClick={() => setIsOpen(false)}
+        >
           Settings
         </Link>
 
-        <Link to="/about">
+        <Link 
+         to="/about"
+         onClick={() => setIsOpen(false)}
+        >
           About
         </Link>
 
-        <Link to="/contact">
+        <Link 
+         to="/contact"
+         onClick={() => setIsOpen(false)}
+        >
           Contact
         </Link>
 
-        <Link to="/login">
+        <Link 
+         to="/login"
+         onClick={() => setIsOpen(false)}
+        >
           Login
         </Link>
       </div>
