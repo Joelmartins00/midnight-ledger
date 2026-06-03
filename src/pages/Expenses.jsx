@@ -1,5 +1,6 @@
 import defaultCategories from "../data/defaultCategories";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Expenses() {
   const [expenses, setExpenses] = useState(() => {
@@ -109,6 +110,26 @@ export default function Expenses() {
         <button style={styles.button}>Add</button>
       </form>
 
+      {expenses.length > 0 && (
+        <Link to="/dashboard">
+          <button
+            style={{
+              padding: "12px 20px",
+              background: "#EEDFCC",
+              color: "#000",
+              border: "none",
+              borderRadius: "10px",
+              marginBottom: "20px",
+              cursor: "pointer",
+              fontWeight: "600",
+              marginRight: "350px",
+            }}
+          >
+            View Dashboard →
+          </button>
+        </Link>
+      )}
+
       {/* Search + Filter */}
       <input
         type="text"
@@ -133,7 +154,20 @@ export default function Expenses() {
       {/* Expense List */}
       <div style={styles.list}>
         {expenses.length === 0 ? (
-          <p style={{ opacity: 0.6 }}>No expenses yet</p>
+          <div
+            style={{
+              textAlign: "center",
+              padding: "30px",
+              opacity: 0.8,
+            }}
+          >
+            <h3>No expenses yet</h3>
+
+            <p>
+              Add your first expense to start
+              tracking your spending.
+            </p>
+          </div>
         ) : (
           filteredExpenses.map((exp) => (
             <div key={exp.id} style={styles.card}>
@@ -198,7 +232,12 @@ export default function Expenses() {
 
 const styles = {
   container: { maxWidth: 600, margin: "auto", padding: "30px" },
-  form: { display: "flex", gap: "10px", marginBottom: "20px" },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+    marginBottom: "20px",
+  },
   input: {
     padding: "10px",
     background: "#141416",
@@ -216,13 +255,16 @@ const styles = {
   list: { display: "flex", flexDirection: "column", gap: "10px" },
   card: {
     background: "#141416",
-    padding: "15px",
+    padding: "16px",
     display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: "10px",
     border: "1px solid #222",
-    borderRadius: "8px",
+    borderRadius: "12px",
+    marginTop: "10px",
   },
+  
   edit: {
   background: "#EEDFCC",
   color: "#000",
@@ -240,5 +282,6 @@ const styles = {
     padding: "8px 14px",
     borderRadius: "8px",
     transition: "0.3s",
+    marginRight: "6px",
   },
 };

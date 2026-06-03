@@ -1,10 +1,12 @@
 import ExpensePieChart from "../components/ExpensePieChart";
 import "../styles/dashboard.css";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"; // ✅ Added useNavigate
 
 export default function Dashboard() {
   const [expenses, setExpenses] = useState([]);
   const [currency, setCurrency] = useState("₦");
+  const navigate = useNavigate(); // ✅ Initialize navigate
 
   useEffect(() => {
     const savedExpenses =
@@ -17,6 +19,21 @@ export default function Dashboard() {
 
     setCurrency(savedCurrency);
   }, []);
+
+  // ✅ Example addExpense function with confirmation + redirect
+  const addExpense = (newExpense) => {
+    const updatedExpenses = [...expenses, newExpense];
+    setExpenses(updatedExpenses);
+    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+
+    const goDashboard = window.confirm(
+      "Expense added successfully.\n\nView Dashboard now?"
+    );
+
+    if (goDashboard) {
+      navigate("/dashboard");
+    }
+  };
 
   const totalSpent = expenses.reduce(
     (sum, item) => sum + item.amount,
@@ -55,13 +72,33 @@ export default function Dashboard() {
         )
       : "None";
 
+  if (expenses.length === 0) {
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          padding: "60px 20px",
+        }}
+      >
+        <h2>No Expense Data Yet</h2>
+        <p>
+          Add some expenses first to unlock your dashboard analytics.
+        </p>
+        <Link to="/expenses">
+          <button className="add-button">
+            Add Expenses
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="container dashboard">
       <div className="dashboard-header">
         <h1>Financial Dashboard</h1>
         <p>
-          Monitor spending patterns and
-          track financial activity.
+          Monitor spending patterns and track financial activity.
         </p>
       </div>
 
@@ -116,28 +153,5 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
-
   );
 }
-
-const styles = {
-  container: {
-    padding: "30px",
-  },
-
-  grid: {
-    display: "grid",
-    gridTemplateColumns:
-      "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "20px",
-    marginTop: "20px",
-  },
-
-  card: {
-    background: "#141416",
-    border: "1px solid #2a2a2a",
-    borderRadius: "12px",
-    padding: "20px",
-    transition: "0.3s",
-  },
-};
