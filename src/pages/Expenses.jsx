@@ -19,7 +19,6 @@ export default function Expenses() {
   const [editTitle, setEditTitle] = useState("");
   const [editAmount, setEditAmount] = useState("");
 
-  // Save ONLY when expenses change
   useEffect(() => {
     localStorage.setItem("expenses", JSON.stringify(expenses));
   }, [expenses]);
@@ -61,7 +60,6 @@ export default function Expenses() {
     setEditAmount(expense.amount);
   };
 
-  // Filtering logic
   const filteredExpenses = expenses.filter((expense) => {
     const matchesSearch = expense.title
       .toLowerCase()
@@ -75,7 +73,6 @@ export default function Expenses() {
     <div style={styles.container}>
       <h1>Expenses</h1>
 
-      {/* Add Expense Form */}
       <form onSubmit={addExpense} style={styles.form}>
         <input
           placeholder="Expense title"

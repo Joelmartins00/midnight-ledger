@@ -75,7 +75,6 @@ export default function Settings() {
           ))}
         </select>
 
-        {/* Reset Expenses Button */}
         <button
           onClick={() => {
             if (
@@ -100,7 +99,6 @@ export default function Settings() {
           Reset Expenses
         </button>
 
-        {/* Export CSV Button */}
         <button
           onClick={exportData}
           style={{

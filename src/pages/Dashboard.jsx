@@ -2,12 +2,12 @@ import ExpensePieChart from "../components/ExpensePieChart";
 import ExpenseBarChart from "../components/ExpenseBarChart";
 import "../styles/dashboard.css";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // ✅ Added useNavigate
+import { Link, useNavigate } from "react-router-dom"; 
 
 export default function Dashboard() {
   const [expenses, setExpenses] = useState([]);
   const [currency, setCurrency] = useState("₦");
-  const navigate = useNavigate(); // ✅ Initialize navigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const savedExpenses =
@@ -21,7 +21,6 @@ export default function Dashboard() {
     setCurrency(savedCurrency);
   }, []);
 
-  // ✅ Example addExpense function with confirmation + redirect
   const addExpense = (newExpense) => {
     const updatedExpenses = [...expenses, newExpense];
     setExpenses(updatedExpenses);

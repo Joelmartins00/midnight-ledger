@@ -4,7 +4,6 @@ import "../styles/home.css";
 export default function Home() {
   return (
     <>
-      {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
           <h1>
@@ -42,7 +41,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* New Section Below Hero */}
       <section
         style={{
           marginTop: "80px",
