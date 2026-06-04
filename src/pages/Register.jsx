@@ -1,45 +1,59 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleLogin = () => {
-    const savedUser = JSON.parse(
-      localStorage.getItem("user")
-    );
-
-    if (!savedUser) {
-      alert("No account found. Please register.");
+  const handleRegister = () => {
+    if (!name || !email || !password || !confirmPassword) {
+      alert("Please fill all fields");
       return;
     }
 
-    if (
-      email === savedUser.email &&
-      password === savedUser.password
-    ) {
-      localStorage.setItem(
-        "isLoggedIn",
-        "true"
-      );
-
-      navigate("/home");
-    } else {
-      alert("Invalid email or password");
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters");
+      return;
     }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    const user = {
+      name,
+      email,
+      password,
+    };
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(user)
+    );
+
+    alert("Account created successfully");
+
+    navigate("/login");
   };
 
   return (
     <div style={styles.page}>
       <div style={styles.card}>
-        <h1>Welcome Back</h1>
+        <h1>Create Account</h1>
 
-        <p style={{ opacity: 0.7 }}>
-          Sign in to continue using Midnight Ledger
-        </p>
+        <input
+          placeholder="Full Name"
+          value={name}
+          onChange={(e) =>
+            setName(e.target.value)
+          }
+          style={styles.input}
+        />
 
         <input
           placeholder="example@email.com"
@@ -52,7 +66,7 @@ export default function Login() {
 
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Minimum 6 characters"
           value={password}
           onChange={(e) =>
             setPassword(e.target.value)
@@ -60,24 +74,34 @@ export default function Login() {
           style={styles.input}
         />
 
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) =>
+            setConfirmPassword(e.target.value)
+          }
+          style={styles.input}
+        />
+
         <button
-          onClick={handleLogin}
+          onClick={handleRegister}
           style={styles.button}
         >
-          Login
+          Create Account
         </button>
 
         <p>
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <Link
-            to="/register"
+            to="/login"
             style={{
               color: "#EEDFCC",
               fontWeight: "600",
               textDecoration: "none",
             }}
           >
-            Create one
+            Sign In
           </Link>
         </p>
       </div>
