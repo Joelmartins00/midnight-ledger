@@ -105,16 +105,32 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <Link
-        to="/profile"
+      <div
         style={{
-          textDecoration: "none",
-          color: "#fff",
           display: "flex",
           alignItems: "center",
-          gap: "10px",
+          gap: "16px",
+          marginLeft: "auto",
         }}
       >
+        <div
+          style={{
+            width: "1px",
+            height: "32px",
+            background: "#333",
+          }}
+        />
+
+        <Link
+          to="/profile"
+          style={{
+            textDecoration: "none",
+            color: "#fff",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
         <div
           style={{
             width: "38px",
@@ -147,6 +163,7 @@ export default function Navbar() {
           </strong>
         </div>
       </Link>
+      </div>
     </nav>
   );
 }
