@@ -11,7 +11,7 @@
   padding: 14px 24px;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -19,13 +19,14 @@
   font-weight: 700;
   letter-spacing: 1px;
   font-size: 0.95rem;
+  margin-right: 40px;
 }
 
 .nav-links {
   display: flex;
   gap: 16px;
   align-items: center;
-  margin-left: 80px;
+  margin-left: auto;
 }
 
 .nav-links a {
@@ -67,7 +68,8 @@
 
   font-size: 1.4rem;
   cursor: pointer;
-  margin-left: auto;
+  margin-left: 320px;
+  margin-right: 10px;
 }
 
 @media (max-width: 900px) {
@@ -88,6 +90,10 @@
     background: #141416;
 
     flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
 
     gap: 18px;
 
