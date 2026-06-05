@@ -8,6 +8,8 @@ export default function Expenses() {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,12 +22,27 @@ export default function Expenses() {
   const [editAmount, setEditAmount] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-  }, [expenses]);
+    setTimeout(() => {
+      const savedExpenses =
+        JSON.parse(localStorage.getItem("expenses")) || [];
+
+      setExpenses(savedExpenses);
+
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   const addExpense = (e) => {
     e.preventDefault();
-    if (!title || !amount) return;
+    if (!title || !amount) {
+      setMessage("Please enter both title and amount.");
+
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
+
+      return;
+    }
 
     const newExpense = {
       id: Date.now(),
@@ -38,10 +55,23 @@ export default function Expenses() {
     setExpenses((prev) => [newExpense, ...prev]);
     setTitle("");
     setAmount("");
+    setMessage("Expense added successfully.");
+
+    setTimeout(() => {
+      setMessage("");
+    }, 3000);
   };
 
   const deleteExpense = (id) => {
-    setExpenses((prev) => prev.filter((exp) => exp.id !== id));
+    setExpenses((prev) =>
+      prev.filter((exp) => exp.id !== id)
+    );
+
+    setMessage("Expense deleted.");
+
+    setTimeout(() => {
+      setMessage("");
+    }, 3000);
   };
 
   const saveEdit = (id) => {
@@ -52,6 +82,12 @@ export default function Expenses() {
     );
     setExpenses(updatedExpenses);
     setEditingId(null);
+
+    setMessage("Expense updated successfully.");
+
+    setTimeout(() => {
+      setMessage("");
+      }, 3000);
   };
 
   const startEditing = (expense) => {
@@ -69,9 +105,38 @@ export default function Expenses() {
     return matchesSearch && matchesCategory;
   });
 
+  if (loading) {
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          padding: "80px",
+        }}
+      >
+        <h2>Loading Expenses...</h2>
+        <p>Please wait</p>
+      </div>
+    );
+  }
+
   return (
     <div style={styles.container}>
       <h1>Expenses</h1>
+
+      {message && (
+        <div
+          style={{
+            background: "#EEDFCC",
+            color: "#000",
+            padding: "12px",
+            borderRadius: "10px",
+            marginBottom: "20px",
+            fontWeight: "600",
+          }}
+        >
+          {message}
+        </div>
+      )}
 
       <form onSubmit={addExpense} style={styles.form}>
         <input
@@ -213,11 +278,11 @@ export default function Expenses() {
                   Delete
                 </button>
                 <button
-              onClick={() => startEditing(exp)}
-              style={styles.edit}
-            >
-              Edit
-            </button>
+                 onClick={() => startEditing(exp)}
+                 style={styles.edit}
+                >
+                  Edit
+                </button>
               </div>
             </div>
           ))
@@ -234,6 +299,7 @@ const styles = {
     flexDirection: "column",
     gap: "12px",
     marginBottom: "20px",
+    marginTop: "10px",
   },
   input: {
     padding: "10px",
