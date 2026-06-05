@@ -20,6 +20,18 @@ export default function Navbar() {
     0
   );
 
+  const formatAmount = (amount) => {
+    if (amount >= 1000000) {
+      return (amount / 1000000).toFixed(2) + "M";
+    }
+
+    if (amount >= 1000) {
+      return (amount / 1000).toFixed(1) + "K";
+    }
+
+    return amount;
+  };
+
   const initials = user.name
     ? user.name
         .split(" ")
@@ -133,8 +145,8 @@ export default function Navbar() {
         >
         <div
           style={{
-            width: "38px",
-            height: "38px",
+            width: "32px",
+            height: "32px",
             borderRadius: "50%",
             background: "#EEDFCC",
             color: "#000",
@@ -142,6 +154,7 @@ export default function Navbar() {
             justifyContent: "center",
             alignItems: "center",
             fontWeight: "bold",
+            fontSize: "0.8rem",
           }}
         >
           {initials}
@@ -151,15 +164,20 @@ export default function Navbar() {
           <small
             style={{
               display: "block",
-              opacity: 0.7,
+              opacity: 0.6,
+              fontSize: "0.65rem",
             }}
           >
             Total
           </small>
 
-          <strong>
+          <strong
+            style={{
+              fontSize: "0.8rem",
+            }}
+          >
             {currency}
-            {totalSpent}
+            {formatAmount(totalSpent)}
           </strong>
         </div>
       </Link>
