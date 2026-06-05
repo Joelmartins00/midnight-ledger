@@ -1,5 +1,6 @@
 import ProtectedRoute from "./components/ProtectedRoute";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
@@ -14,10 +15,17 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Reports from "./pages/Reports";
 
-export default function App() {
+function AppContent() {
+  const location = useLocation();
+
+  const hideLayout =
+    location.pathname === "/" ||
+    location.pathname === "/login" ||
+    location.pathname === "/register";
+
   return (
-    <BrowserRouter>
-      <Navbar />
+    <>
+      {!hideLayout && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Login />} />
@@ -73,10 +81,17 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
-        
       </Routes>
 
-      <Footer />
+      {!hideLayout && <Footer />}
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }
