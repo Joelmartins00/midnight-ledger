@@ -25,7 +25,7 @@
   display: flex;
   gap: 16px;
   align-items: center;
-  margin-left: 420px;
+  margin-left: 80px;
 }
 
 .nav-links a {
@@ -67,7 +67,7 @@
 
   font-size: 1.4rem;
   cursor: pointer;
-  margin-left: 325px;
+  margin-left: auto;
 }
 
 @media (max-width: 900px) {
