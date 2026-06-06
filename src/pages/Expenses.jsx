@@ -145,59 +145,78 @@ export default function Expenses() {
         </div>
       )}
 
-      <form onSubmit={addExpense} style={styles.form}>
-        <input
-          placeholder="Expense title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          style={styles.input}
-        />
-        <input
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          type="number"
-          style={styles.input}
-        />
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          style={styles.input}
+      <div style={styles.formCard}>
+        <h2
+          style={{
+            marginBottom: "20px",
+          }}
         >
-          {defaultCategories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          style={styles.input}
-        />
-        <button style={styles.button}>Add</button>
-      </form>
+          Add New Expense
+        </h2>
 
-      {expenses.length > 0 && (
-        <Link to="/dashboard">
-          <button
-            style={{
-              padding: "12px 20px",
-              background: "#EEDFCC",
-              color: "#000",
-              border: "none",
-              borderRadius: "10px",
-              marginBottom: "20px",
-              cursor: "pointer",
-              fontWeight: "600",
-              marginRight: "350px",
-            }}
+        <form onSubmit={addExpense} style={styles.form}>
+          <input
+            placeholder="e.g. Lunch at Restaurant"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            style={styles.input}
+          />
+
+          <input
+            placeholder="e.g. 5000"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            type="number"
+            style={styles.input}
+          />
+
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            style={styles.input}
           >
-            View Dashboard →
+            {defaultCategories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            style={styles.input}
+          />
+
+          <button style={styles.button}>
+            Add Expense
           </button>
-        </Link>
-      )}
+        </form>
+
+        {expenses.length > 0 && (
+          <Link to="/dashboard">
+            <button
+              style={{
+                marginTop: "10px",
+                marginBottom: "25px",
+                padding: "12px 20px",
+                background: "#EEDFCC",
+                color: "#000",
+                border: "none",
+                borderRadius: "10px",
+                cursor: "pointer",
+                fontWeight: "600",
+                width: "100%",
+                maxWidth: "250px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              View Dashboard →
+            </button>
+          </Link>
+        )}
+      </div>
 
       {/* Search + Filter */}
       <input
