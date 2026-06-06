@@ -145,60 +145,88 @@ export default function Expenses() {
         </div>
       )}
 
+      <div
+        style={{
+          background: "#141416",
+          border: "1px solid #222",
+          borderRadius: "16px",
+          padding: "20px",
+          marginBottom: "5px",
+          marginTop: "10px",
+        }}
+      >
+        <h3>Total Expenses</h3>
+
+        <h1>
+          {localStorage.getItem("currency") || "₦"}
+          {expenses.reduce(
+            (sum, exp) => sum + exp.amount,
+            0
+          )}
+        </h1>
+
+        <p>
+          {expenses.length} transaction(s)
+        </p>
+      </div>
+
       <div style={styles.formCard}>
         <h2
           style={{
             marginBottom: "20px",
+            color: "#EEDFCC",
           }}
         >
           Add New Expense
         </h2>
 
-        <form onSubmit={addExpense} style={styles.form}>
-          <input
-            placeholder="e.g. Lunch at Restaurant"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            style={styles.input}
-          />
+        <div>
+          <form onSubmit={addExpense} style={styles.form}>
+            <input
+              placeholder="e.g. Lunch at Restaurant"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              style={styles.input}
+            />
 
-          <input
-            placeholder="e.g. 5000"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            type="number"
-            style={styles.input}
-          />
+            <input
+              placeholder="e.g. 5000"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              type="number"
+              style={styles.input}
+            />
 
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            style={styles.input}
-          >
-            {defaultCategories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              style={styles.input}
+            >
+              {defaultCategories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
 
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            style={styles.input}
-          />
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              style={styles.input}
+            />
 
-          <button style={styles.button}>
-            Add Expense
-          </button>
-        </form>
+            <button style={styles.button}>
+              Add Expense
+            </button>
+          </form>
+        </div>
 
         {expenses.length > 0 && (
           <Link to="/dashboard">
             <button
               style={{
-                marginTop: "10px",
+                marginTop: "1px",
                 marginBottom: "25px",
                 padding: "12px 20px",
                 background: "#EEDFCC",
@@ -221,7 +249,7 @@ export default function Expenses() {
       {/* Search + Filter */}
       <input
         type="text"
-        placeholder="Search expenses..."
+        placeholder="Search by title..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         style={styles.input}
@@ -320,6 +348,14 @@ export default function Expenses() {
 
 const styles = {
   container: { maxWidth: 600, margin: "auto", padding: "30px" },
+  formCard: {
+    background: "#141416",
+    border: "1px solid #222",
+    borderRadius: "16px",
+    padding: "25px",
+    marginBottom: "25px",
+    marginTop: "15px",
+  },
   form: {
     display: "flex",
     flexDirection: "column",
@@ -340,6 +376,9 @@ const styles = {
     border: "none",
     color: "#000",
     cursor: "pointer",
+    borderRadius: "10px",
+    fontWeight: "600",
+    transition: "0.3s",
   },
   list: { display: "flex", flexDirection: "column", gap: "10px" },
   card: {
