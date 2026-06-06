@@ -32,6 +32,13 @@ export default function Expenses() {
     }, 1000);
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem(
+      "expenses",
+      JSON.stringify(expenses)
+    );
+  }, [expenses]);
+
   const addExpense = (e) => {
     e.preventDefault();
     if (!title || !amount) {
