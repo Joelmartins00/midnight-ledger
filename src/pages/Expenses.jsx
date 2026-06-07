@@ -13,7 +13,7 @@ export default function Expenses() {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState("Food");
+  const [category, setCategory] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [filterCategory, setFilterCategory] = useState("All");
   const [editingId, setEditingId] = useState(null);
@@ -41,8 +41,8 @@ export default function Expenses() {
 
   const addExpense = (e) => {
     e.preventDefault();
-    if (!title || !amount) {
-      setMessage("Please enter both title and amount.");
+    if (!title || !amount || !category) {
+      setMessage("Please fill all fields and select a category.");
 
       setTimeout(() => {
         setMessage("");
@@ -128,7 +128,7 @@ export default function Expenses() {
 
   return (
     <div style={styles.container}>
-      <h1>Expenses</h1>
+      <h2>Expenses</h2>
 
       {message && (
         <div
@@ -150,7 +150,7 @@ export default function Expenses() {
           background: "#141416",
           border: "1px solid #222",
           borderRadius: "16px",
-          padding: "20px",
+          padding: "14px",
           marginBottom: "5px",
           marginTop: "10px",
         }}
@@ -182,32 +182,80 @@ export default function Expenses() {
 
         <div>
           <form onSubmit={addExpense} style={styles.form}>
-            <input
-              placeholder="e.g. Lunch at Restaurant"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              style={styles.input}
-            />
+            <>
+              <label
+                style={{
+                  fontSize: "14px",
+                  marginBottom: "1px",
+                  display: "block",
+                }}
+              >
+                Expense Title
+              </label>
 
-            <input
-              placeholder="e.g. 5000"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              type="number"
-              style={styles.input}
-            />
+              <input
+                placeholder="e.g. Lunch at Restaurant"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                style={styles.input}
+              />
+            </>
+
+            <>
+              <label
+                style={{
+                  fontSize: "14px",
+                  marginBottom: "5px",
+                  display: "block",
+                }}
+              >
+                Amount
+              </label>
+
+              <input
+                placeholder="e.g. 5000"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                type="number"
+                style={styles.input}
+              />
+            </>
+
+            <label
+              style={{
+                fontSize: "14px",
+                marginBottom: "5px",
+                display: "block",
+              }}
+            >
+              Category
+            </label>
 
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               style={styles.input}
             >
+              <option value="">
+                Select Category
+              </option>
+
               {defaultCategories.map((cat) => (
                 <option key={cat} value={cat}>
                   {cat}
                 </option>
               ))}
             </select>
+
+            <label
+              style={{
+                fontSize: "14px",
+                marginBottom: "5px",
+                display: "block",
+              }}
+            >
+              Date
+            </label>
 
             <input
               type="date"
@@ -247,25 +295,38 @@ export default function Expenses() {
       </div>
 
       {/* Search + Filter */}
-      <input
-        type="text"
-        placeholder="Search by title..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={styles.input}
-      />
-      <select
-        value={filterCategory}
-        onChange={(e) => setFilterCategory(e.target.value)}
-        style={styles.input}
-      >
-        <option value="All">All Categories</option>
-        {defaultCategories.map((cat) => (
-          <option key={cat} value={cat}>
-            {cat}
-          </option>
-        ))}
-      </select>
+      
+      <div style={styles.filterCard}>
+        <h2
+          style={{
+            marginBottom: "15px",
+            color: "#EEDFCC",
+          }}
+        >
+          Search & Filter
+        </h2>
+
+        <input
+          type="text"
+          placeholder="Search by title..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={styles.input}
+        />
+        <select
+          value={filterCategory}
+          onChange={(e) => setFilterCategory(e.target.value)}
+          style={styles.input}
+        >
+          <option value="All">All Categories</option>
+          {defaultCategories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+      
+      </div>
 
       {/* Expense List */}
       <div style={styles.list}>
@@ -314,12 +375,48 @@ export default function Expenses() {
                   </>
                 ) : (
                   <>
-                    <h3>{exp.title}</h3>
-                    <p>{exp.category}</p>
-                    <p>{exp.date}</p>
-                    <p>
+                    <h3
+                      style={{
+                        margin: 0,
+                      }}
+                    >
+                      {exp.title}
+                    </h3>
+
+                    <span
+                      style={{
+                        background: "#010101",
+                        color: "#ffffff",
+                        padding: "4px 10px",
+                        borderRadius: "20px",
+                        fontSize: "12px",
+                        fontWeight: "600",
+                        display: "inline-block",
+                        marginTop: "5px",
+                      }}
+                    >
+                      {exp.category}
+                    </span>
+
+                    <p
+                      style={{
+                        fontSize: "1.2rem",
+                        fontWeight: "700",
+                        margin: "8px 0",
+                      }}
+                    >
                       {localStorage.getItem("currency") || "₦"}
-                      {exp.amount}
+                      {exp.amount.toLocaleString()}
+                    </p>
+
+                    <p
+                      style={{
+                        opacity: 0.7,
+                        fontSize: "0.9rem",
+                        margin: 0,
+                      }}
+                    >
+                      {exp.date}
                     </p>
                   </>
                 )}
@@ -352,9 +449,16 @@ const styles = {
     background: "#141416",
     border: "1px solid #222",
     borderRadius: "16px",
-    padding: "25px",
-    marginBottom: "25px",
+    padding: "16px",
+    marginBottom: "15px",
     marginTop: "15px",
+  },
+  filterCard: {
+    background: "#141416",
+    border: "1px solid #222",
+    borderRadius: "16px",
+    padding: "16px",
+    marginBottom: "15px",
   },
   form: {
     display: "flex",
@@ -387,10 +491,11 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    gap: "10px",
+    gap: "12px",
     border: "1px solid #222",
-    borderRadius: "12px",
+    borderRadius: "16px",
     marginTop: "10px",
+    transition: "0.3s",
   },
   
   edit: {
