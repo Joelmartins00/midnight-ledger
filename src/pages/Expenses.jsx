@@ -12,6 +12,7 @@ export default function Expenses() {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
+  const [showForm, setShowForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -62,6 +63,7 @@ export default function Expenses() {
     setExpenses((prev) => [newExpense, ...prev]);
     setTitle("");
     setAmount("");
+    setShowForm(false);
     setMessage("Expense added successfully.");
 
     setTimeout(() => {
@@ -170,38 +172,65 @@ export default function Expenses() {
         </p>
       </div>
 
-      <div style={styles.formCard}>
-        <h2
-          style={{
-            marginBottom: "20px",
-            color: "#EEDFCC",
-          }}
-        >
-          Add New Expense
-        </h2>
+      <button
+        onClick={() => setShowForm(!showForm)}
+        style={styles.toggleButton}
+      >
+        {showForm ? "− Hide Expense Form" : "+ Add Expense"}
+      </button>
 
-        <div>
-          <form onSubmit={addExpense} style={styles.form}>
-            <>
-              <label
-                style={{
-                  fontSize: "14px",
-                  marginBottom: "1px",
-                  display: "block",
-                }}
-              >
-                Expense Title
-              </label>
+      {showForm && (
+        <div style={styles.formCard}>
+          <h2
+            style={{
+              marginBottom: "20px",
+              color: "#EEDFCC",
+            }}
+          >
+            Add New Expense
+          </h2>
 
-              <input
-                placeholder="e.g. Lunch at Restaurant"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                style={styles.input}
-              />
-            </>
+          <div>
+            <form onSubmit={addExpense} style={styles.form}>
+              <>
+                <label
+                  style={{
+                    fontSize: "14px",
+                    marginBottom: "1px",
+                    display: "block",
+                  }}
+                >
+                  Expense Title
+                </label>
 
-            <>
+                <input
+                  placeholder="e.g. Lunch at Restaurant"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  style={styles.input}
+                />
+              </>
+
+              <>
+                <label
+                  style={{
+                    fontSize: "14px",
+                    marginBottom: "5px",
+                    display: "block",
+                  }}
+                >
+                  Amount
+                </label>
+
+                <input
+                  placeholder="e.g. 5000"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  type="number"
+                  style={styles.input}
+                />
+              </>
+
               <label
                 style={{
                   fontSize: "14px",
@@ -209,90 +238,72 @@ export default function Expenses() {
                   display: "block",
                 }}
               >
-                Amount
+                Category
+              </label>
+
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                style={styles.input}
+              >
+                <option value="">
+                  Select Category
+                </option>
+
+                {defaultCategories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+
+              <label
+                style={{
+                  fontSize: "14px",
+                  marginBottom: "5px",
+                  display: "block",
+                }}
+              >
+                Date
               </label>
 
               <input
-                placeholder="e.g. 5000"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                type="number"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
                 style={styles.input}
               />
-            </>
 
-            <label
-              style={{
-                fontSize: "14px",
-                marginBottom: "5px",
-                display: "block",
-              }}
-            >
-              Category
-            </label>
+              <button style={styles.button}>
+                Add Expense
+              </button>
+            </form>
+          </div>
 
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              style={styles.input}
-            >
-              <option value="">
-                Select Category
-              </option>
-
-              {defaultCategories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-
-            <label
-              style={{
-                fontSize: "14px",
-                marginBottom: "5px",
-                display: "block",
-              }}
-            >
-              Date
-            </label>
-
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              style={styles.input}
-            />
-
-            <button style={styles.button}>
-              Add Expense
-            </button>
-          </form>
+          {expenses.length > 0 && (
+            <Link to="/dashboard">
+              <button
+                style={{
+                  marginTop: "1px",
+                  marginBottom: "25px",
+                  padding: "12px 20px",
+                  background: "#EEDFCC",
+                  color: "#000",
+                  border: "none",
+                  borderRadius: "10px",
+                  cursor: "pointer",
+                  fontWeight: "600",
+                  width: "100%",
+                  maxWidth: "250px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                View Dashboard →
+              </button>
+            </Link>
+          )}
         </div>
-
-        {expenses.length > 0 && (
-          <Link to="/dashboard">
-            <button
-              style={{
-                marginTop: "1px",
-                marginBottom: "25px",
-                padding: "12px 20px",
-                background: "#EEDFCC",
-                color: "#000",
-                border: "none",
-                borderRadius: "10px",
-                cursor: "pointer",
-                fontWeight: "600",
-                width: "100%",
-                maxWidth: "250px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              View Dashboard →
-            </button>
-          </Link>
-        )}
-      </div>
+      )}
 
       {/* Search + Filter */}
       
@@ -452,6 +463,18 @@ const styles = {
     padding: "16px",
     marginBottom: "15px",
     marginTop: "15px",
+  },
+  toggleButton: {
+    width: "100%",
+    padding: "14px",
+    background: "#EEDFCC",
+    color: "#000",
+    border: "none",
+    borderRadius: "12px",
+    fontWeight: "700",
+    cursor: "pointer",
+    marginBottom: "15px",
+    transition: "0.3s",
   },
   filterCard: {
     background: "#141416",
