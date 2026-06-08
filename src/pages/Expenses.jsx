@@ -22,6 +22,28 @@ export default function Expenses() {
   const [editTitle, setEditTitle] = useState("");
   const [editAmount, setEditAmount] = useState("");
 
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString(
+      "en-GB",
+      {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }
+    );
+  };
+
+  const categoryIcons = {
+    Food: "🍔",
+    Transport: "🚗",
+    Shopping: "🛒",
+    Entertainment: "🎮",
+    Utilities: "💡",
+    Health: "🏥",
+    Education: "📚",
+    Other: "📌",
+  };
+
   useEffect(() => {
     setTimeout(() => {
       const savedExpenses =
@@ -280,7 +302,11 @@ export default function Expenses() {
             </form>
           </div>
 
-          {expenses.length > 0 && (
+          
+        </div>
+      )}
+
+      {expenses.length > 0 && (
             <Link to="/dashboard">
               <button
                 style={{
@@ -292,52 +318,55 @@ export default function Expenses() {
                   border: "none",
                   borderRadius: "10px",
                   cursor: "pointer",
-                  fontWeight: "600",
+                  fontWeight: "700",
                   width: "100%",
                   maxWidth: "250px",
                   whiteSpace: "nowrap",
+                  boxShadow: "0 0 10px rgba(238,223,204,0.5), 0 0 20px rgba(238,223,204,0.3)",
+                  transition: "0.3s",
                 }}
               >
                 View Dashboard →
               </button>
             </Link>
           )}
-        </div>
-      )}
 
       {/* Search + Filter */}
       
-      <div style={styles.filterCard}>
-        <h2
-          style={{
-            marginBottom: "15px",
-            color: "#EEDFCC",
-          }}
-        >
-          Search & Filter
-        </h2>
+      {expenses.length > 0 && (
+        <>
+          <div style={styles.filterCard}>
+          <h2
+            style={{
+              marginBottom: "15px",
+              color: "#EEDFCC",
+            }}
+          >
+            Search & Filter
+          </h2>
 
-        <input
-          type="text"
-          placeholder="Search by title..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={styles.input}
-        />
-        <select
-          value={filterCategory}
-          onChange={(e) => setFilterCategory(e.target.value)}
-          style={styles.input}
-        >
-          <option value="All">All Categories</option>
-          {defaultCategories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
-      
-      </div>
+          <input
+            type="text"
+            placeholder="Search by title..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={styles.input}
+          />
+          <select
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+            style={styles.input}
+          >
+            <option value="All">All Categories</option>
+            {defaultCategories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+        </>
+      )}
 
       {/* Expense List */}
       <div style={styles.list}>
@@ -363,13 +392,24 @@ export default function Expenses() {
                 {editingId === exp.id ? (
                   <>
                     <input
+                      placeholder="Expense title"
                       value={editTitle}
                       onChange={(e) => setEditTitle(e.target.value)}
+                      style={{
+                        ...styles.input,
+                        marginBottom: "10px",
+                      }}
                     />
+
                     <input
                       type="number"
+                      placeholder="Amount"
                       value={editAmount}
                       onChange={(e) => setEditAmount(e.target.value)}
+                      style={{
+                        ...styles.input,
+                        marginBottom: "10px",
+                      }}
                     />
                     <button
                       onClick={() => saveEdit(exp.id)}
@@ -406,7 +446,7 @@ export default function Expenses() {
                         marginTop: "5px",
                       }}
                     >
-                      {exp.category}
+                      {categoryIcons[exp.category] || "📌"} {exp.category}
                     </span>
 
                     <p
@@ -427,23 +467,33 @@ export default function Expenses() {
                         margin: 0,
                       }}
                     >
-                      {exp.date}
+                      {formatDate(exp.date)}
                     </p>
                   </>
                 )}
               </div>
-              <div>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  width: "100%",
+                  justifyContent: "flex-end",
+                  marginTop: "10px",
+                }}
+              >
+                <button
+                  onClick={() => startEditing(exp)}
+                  style={styles.edit}
+                >
+                  Edit
+                </button>
+
                 <button
                   onClick={() => deleteExpense(exp.id)}
                   style={styles.delete}
                 >
                   Delete
-                </button>
-                <button
-                 onClick={() => startEditing(exp)}
-                 style={styles.edit}
-                >
-                  Edit
                 </button>
               </div>
             </div>
@@ -522,21 +572,25 @@ const styles = {
   },
   
   edit: {
-  background: "#EEDFCC",
-  color: "#000",
-  border: "none",
-  padding: "8px 14px",
-  borderRadius: "8px",
-  marginRight: "10px",
-  transition: "0.3s",
-},
+    background: "#EEDFCC",
+    color: "#000",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "10px",
+    marginRight: "3px",
+    fontWeight: "600",
+    cursor: "pointer",
+    transition: "0.3s",
+  },
 
   delete: {
     background: "transparent",
     color: "#fff",
     border: "1px solid #444",
-    padding: "8px 14px",
-    borderRadius: "8px",
+    padding: "10px 16px",
+    borderRadius: "10px",
+    fontWeight: "600",
+    cursor: "pointer",
     transition: "0.3s",
     marginRight: "6px",
   },
