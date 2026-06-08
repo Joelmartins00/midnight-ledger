@@ -333,7 +333,7 @@ export default function Expenses() {
 
       {/* Search + Filter */}
       
-      {expenses.length > 0 && (
+      {expenses.length >= 1 && (
         <>
           <div style={styles.filterCard}>
           <h2
@@ -517,7 +517,7 @@ const styles = {
   toggleButton: {
     width: "100%",
     padding: "14px",
-    background: "#EEDFCC",
+    background: "#ffffff",
     color: "#000",
     border: "none",
     borderRadius: "12px",
