@@ -42,9 +42,13 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="logo">
+      <Link
+        to="/home"
+        className="logo"
+        onClick={() => setMenuOpen(false)}
+      >
         MIDNIGHT LEDGER
-      </div>
+      </Link>
 
       <button
         className="menu-btn"

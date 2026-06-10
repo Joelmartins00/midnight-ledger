@@ -21,8 +21,18 @@
 .logo {
   font-weight: 700;
   letter-spacing: 1px;
-  font-size: 0.95rem;
+  font-size: clamp(0.75rem, 2vw, 0.95rem);
   margin-right: 0px;
+
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.logo:hover {
+  color: var(--antique);
 }
 
 .nav-links {
@@ -80,6 +90,10 @@
     display: block;
   }
 
+  .navbar {
+    padding: 12px 16px;
+  }
+
   .nav-links {
     display: none;
 
@@ -111,5 +125,9 @@
 
   .logo {
     font-size: 0.85rem;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

@@ -26,14 +26,7 @@ export default function About() {
             marginTop: "10px",
           }}
         >
-          Midnight Ledger is a modern
-          expense tracking application
-          designed to help users record,
-          organize, and analyze their
-          spending habits through
-          interactive dashboards,
-          reports, and financial
-          insights.
+          Midnight Ledger is a personal expense tracking and budgeting application that allows users to manually record their daily spending, organize expenses by category, and review their financial activity through reports and charts. It serves as a digital expense diary, helping users develop better spending habits and maintain greater control over their finances.
         </p>
       </div>
 
