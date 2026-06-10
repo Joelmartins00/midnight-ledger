@@ -55,64 +55,121 @@ export default function Settings() {
       <div style={{ padding: "30px" }}>
         <h1>Settings</h1>
 
-        <h3 style={{ marginTop: "20px" }}>Preferred Currency</h3>
-
-        <select
-          value={currency}
-          onChange={handleChange}
+        <div
           style={{
-            padding: "10px",
-            marginTop: "10px",
+            marginTop: "20px",
+            marginBottom: "25px",
+            padding: "15px",
             background: "#141416",
-            color: "#fff",
-            border: "1px solid #333",
+            border: "1px solid #252525",
+            borderRadius: "12px",
           }}
         >
-          {currencies.map((currency) => (
-            <option key={currency.code} value={currency.symbol}>
-              {currency.symbol} {currency.name}
-            </option>
-          ))}
-        </select>
+          <h3>Application Version</h3>
 
-        <button
-          onClick={() => {
-            if (
-              window.confirm(
-                "Delete all expenses?"
-              )
-            ) {
-              localStorage.removeItem("expenses");
-              window.location.reload();
-            }
-          }}
-          style={{
-            marginTop: 20,
-            marginLeft: 10,
-            padding: "12px 20px",
-            borderRadius: "10px",
-            border: "1px solid #444",
-            background: "transparent",
-            color: "#fff",
-          }}
-        >
-          Reset Expenses
-        </button>
+          <p
+            style={{
+              opacity: 0.8,
+              marginTop: "8px",
+            }}
+          >
+            Midnight Ledger v1.0.0
+          </p>
+        </div>
 
-        <button
-          onClick={exportData}
+        <div
           style={{
-            marginTop: 20,
-            marginLeft: 10,
-            padding: "12px 20px",
-            borderRadius: "10px",
-            border: "1px solid #444",
-            background: "transparent",
-            color: "#fff",
+            padding: "20px",
+            background: "#141416",
+            border: "1px solid #252525",
+            borderRadius: "12px",
+            marginBottom: "20px",
           }}
         >
-          Export CSV
-        </button>
+          <h3>💱 Preferred Currency</h3>
+
+          <select
+            value={currency}
+            onChange={handleChange}
+            style={{
+              padding: "10px",
+              marginTop: "15px",
+              background: "#141416",
+              color: "#fff",
+              border: "1px solid #333",
+              borderRadius: "8px",
+              width: "100%",
+              maxWidth: "320px",
+            }}
+          >
+            {currencies.map((currency) => (
+              <option
+                key={currency.code}
+                value={currency.symbol}
+              >
+                {currency.symbol} {currency.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div
+          style={{
+            padding: "20px",
+            background: "#141416",
+            border: "1px solid #252525",
+            borderRadius: "12px",
+            marginTop: "20px",
+          }}
+        >
+          <h3
+            style={{
+              marginBottom: "20px",
+            }}
+          >
+            ⚙️ Data Management
+          </h3>
+
+          <button
+            onClick={() => {
+              if (
+                window.confirm(
+                  "Delete all expenses?"
+                )
+              ) {
+                localStorage.removeItem("expenses");
+                window.location.reload();
+              }
+            }}
+            style={{
+              padding: "12px 20px",
+              borderRadius: "10px",
+              border: "1px solid #444",
+              background: "transparent",
+              color: "#fff",
+              cursor: "pointer",
+              marginRight: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            Reset Expenses
+          </button>
+
+          <button
+            onClick={exportData}
+            style={{
+              padding: "12px 20px",
+              borderRadius: "10px",
+              border: "1px solid #444",
+              background: "#EEDFCC",
+              color: "#000",
+              cursor: "pointer",
+              fontWeight: "600",
+            }}
+          >
+            Export CSV
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ export default function About() {
       <h1
         style={{
           marginBottom: "30px",
+          marginTop: "12px",
         }}
       >
         About Midnight Ledger
