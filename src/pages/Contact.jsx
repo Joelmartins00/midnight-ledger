@@ -54,7 +54,7 @@ export default function Contact() {
           }}
         >
           <h3>📍 Address</h3>
-          <p>Lagos, Nigeria</p>
+          <p>P.M.B. 30678, Ibadan, Oyo State, Nigeria</p>
         </div>
 
         <div
